@@ -1,13 +1,9 @@
-export default function RootLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
-    return (
-        <html lang="en">
-            <body>
-                {children}
-            </body>
-        </html>
-    );
+import { ReactNode } from 'react';
+import '../styles/global.css'
+type Props = {
+    children: ReactNode;
+};
+
+export default function RootLayout({ children }: Props) {
+    return children;
 }

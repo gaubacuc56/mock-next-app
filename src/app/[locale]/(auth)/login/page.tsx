@@ -1,14 +1,20 @@
 "use client"; // Mark this component as a Client Component
 
-import { signIn } from "next-auth/react";
+import { useAuthStore } from "@/store/hooks/useAuthStore";
+import { signIn, useSession } from "next-auth/react";
+import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
+  const locale = useLocale();
+  const session = useSession();
+
+  const { login } = useAuthStore()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,10 +27,15 @@ export default function Login() {
 
     if (result?.error) {
       setError(result.error);
-    } else {
-      router.push("/dashboard"); // Redirect to the dashboard after successful login
     }
   };
+
+  useEffect(() => {
+    if (session.data?.user?.email) {
+      login({ email: session.data.user.email, token: "" })
+      router.push('/' + locale);
+    }
+  }, [locale, login, router, session])
 
   return (
     <div>

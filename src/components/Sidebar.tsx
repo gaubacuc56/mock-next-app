@@ -1,10 +1,13 @@
-'use client';
-
 import Link from 'next/link';
 
-export default function Sidebar() {
+interface ISidebarProps {
+  email: string
+}
+export default function Sidebar(props: ISidebarProps) {
+  const { email } = props
   return (
     <aside className="w-64 bg-gray-800 text-white p-4">
+      Hi {email}
       <nav>
         <ul>
           <li>

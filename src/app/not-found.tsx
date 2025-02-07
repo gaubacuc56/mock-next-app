@@ -1,12 +1,17 @@
-import Link from 'next/link';
+'use client';
+
+import Error from 'next/error';
+
+// Render the default Next.js 404 page when a route
+// is requested that doesn't match the middleware and
+// therefore doesn't have a locale associated with it.
 
 export default function NotFound() {
   return (
-    <div className="text-center mx-auto">
-      <h2>404 Not Found</h2>
-      <Link href="/" className="primary-btn">
-        Return Home
-      </Link>
-    </div>
+    <html lang="en">
+      <body>
+        <Error statusCode={404} />
+      </body>
+    </html>
   );
 }
